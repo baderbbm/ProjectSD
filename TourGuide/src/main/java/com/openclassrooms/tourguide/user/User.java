@@ -69,12 +69,21 @@ public class User {
 		visitedLocations.clear();
 	}
 	
+	// un UserReward avec la même attraction n'est pas ajouté plusieurs fois à la liste
+	
+	// exclure tous les éléments qui ont le même nom d'attraction que l'objet userReward actuel
+	
 	public void addUserReward(UserReward userReward) {
 		if(userRewards.stream().filter(r -> !r.attraction.attractionName.equals(userReward.attraction)).count() == 0) {
 			userRewards.add(userReward);
 		}
 	}
+
 	
+	public void setUserRewards(List<UserReward> userRewards) {
+		this.userRewards = userRewards;
+	}
+
 	public List<UserReward> getUserRewards() {
 		return userRewards;
 	}
