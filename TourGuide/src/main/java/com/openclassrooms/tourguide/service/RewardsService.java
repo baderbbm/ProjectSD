@@ -1,9 +1,10 @@
 package com.openclassrooms.tourguide.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
-
 import gpsUtil.GpsUtil;
 import gpsUtil.location.Attraction;
 import gpsUtil.location.Location;
@@ -36,6 +37,12 @@ public class RewardsService {
 		proximityBuffer = defaultProximityBuffer;
 	}
 	
+	
+	// parcourir la liste des emplacements visités par l'utilisateur (userLocations) 
+	// et des attractions, tout en modifiant la liste des récompenses de l'utilisateur (user.getUserRewards())
+	// vous modifiez la liste user.getUserRewards() en ajoutant des éléments à l'intérieur de la boucle
+	
+	/*
 	public void calculateRewards(User user) {
 		List<VisitedLocation> userLocations = user.getVisitedLocations();
 		List<Attraction> attractions = gpsUtil.getAttractions();
@@ -51,6 +58,33 @@ public class RewardsService {
 		}
 	}
 	
+	*/
+	
+	
+	public void calculateRewards(User user) {
+		int c=0;
+		// List<VisitedLocation> userLocations = user.getVisitedLocations();
+		List<VisitedLocation> userLocations = new ArrayList<>(user.getVisitedLocations());
+		List<Attraction> attractions = gpsUtil.getAttractions();
+		
+		List<UserReward> newRewards = new ArrayList<UserReward>();
+		for (VisitedLocation visitedLocation : userLocations) {
+			
+			for (Attraction attraction : attractions) {
+			if (user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
+					if (nearAttraction(visitedLocation, attraction)) {
+						System.out.println(c+ " proche");
+						++c;	
+						newRewards.add(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user)));
+						// user.addUserReward(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user)));
+					}
+				}
+			}
+		}
+		
+	  user.setUserRewards(newRewards);
+	}
+	
 	public boolean isWithinAttractionProximity(Attraction attraction, Location location) {
 		return getDistance(attraction, location) > attractionProximityRange ? false : true;
 	}
@@ -59,7 +93,7 @@ public class RewardsService {
 		return getDistance(attraction, visitedLocation.location) > proximityBuffer ? false : true;
 	}
 	
-	private int getRewardPoints(Attraction attraction, User user) {
+	public int getRewardPoints(Attraction attraction, User user) {
 		return rewardsCentral.getAttractionRewardPoints(attraction.attractionId, user.getUserId());
 	}
 	
@@ -76,5 +110,4 @@ public class RewardsService {
         double statuteMiles = STATUTE_MILES_PER_NAUTICAL_MILE * nauticalMiles;
         return statuteMiles;
 	}
-
 }
