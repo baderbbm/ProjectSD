@@ -60,9 +60,7 @@ public class RewardsService {
 	
 	*/
 	
-	
 	public void calculateRewards(User user) {
-		int c=0;
 		// List<VisitedLocation> userLocations = user.getVisitedLocations();
 		List<VisitedLocation> userLocations = new ArrayList<>(user.getVisitedLocations());
 		List<Attraction> attractions = gpsUtil.getAttractions();
@@ -71,17 +69,15 @@ public class RewardsService {
 		for (VisitedLocation visitedLocation : userLocations) {
 			
 			for (Attraction attraction : attractions) {
-			if (user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
+			//if (user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
+				if (newRewards.stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
 					if (nearAttraction(visitedLocation, attraction)) {
-						System.out.println(c+ " proche");
-						++c;	
 						newRewards.add(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user)));
 						// user.addUserReward(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user)));
 					}
 				}
 			}
-		}
-		
+		}	
 	  user.setUserRewards(newRewards);
 	}
 	
