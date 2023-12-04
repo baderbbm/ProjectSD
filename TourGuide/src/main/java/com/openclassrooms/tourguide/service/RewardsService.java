@@ -54,13 +54,13 @@ public class RewardsService {
 			//if (user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
 				if (newRewards.stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
 					if (nearAttraction(visitedLocation, attraction)) {
-						newRewards.add(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user)));
 						// user.addUserReward(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user)));
+						newRewards.add(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user)));
 					}
 				}
 			}
 		}	
-	  user.setUserRewards(newRewards);
+	  user.getUserRewards().addAll(newRewards);
 	}
 	
 	public boolean isWithinAttractionProximity(Attraction attraction, Location location) {
