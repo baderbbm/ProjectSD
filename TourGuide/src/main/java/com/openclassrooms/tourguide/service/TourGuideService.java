@@ -97,41 +97,7 @@ public class TourGuideService {
 		System.out.println("Providers from tripPricer: " + providers);
 		return providers;
 	}
-	
-	
-	
-	
-	
-	/*
-	public List<Provider> getTripDeals(User user) {
-	    int cumulativeRewardPoints = user.getUserRewards().stream().mapToInt(i -> i.getRewardPoints()).sum();
-	    System.out.println("Cumulative Reward Points: " + cumulativeRewardPoints);
-	    List<Provider> providersWithRewardPoints = tripPricer.getPrice(
-	        tripPricerApiKey, user.getUserId(),
-	        user.getUserPreferences().getNumberOfAdults(), user.getUserPreferences().getNumberOfChildren(),
-	        user.getUserPreferences().getTripDuration(), cumulativeRewardPoints
-	    );
 
-	    // Get Additional 5 Trip Deals without Considering Reward Points
-	    List<Provider> additionalProviders = tripPricer.getPrice(
-	        tripPricerApiKey, user.getUserId(),
-	        user.getUserPreferences().getNumberOfAdults(), user.getUserPreferences().getNumberOfChildren(),
-	        user.getUserPreferences().getTripDuration(), 0 // No cumulative reward points considered
-	    );
-
-	    // Combine the two lists of providers
-	    List<Provider> allProviders = new ArrayList<>(providersWithRewardPoints);
-	    allProviders.addAll(additionalProviders);
-
-	    // Set Trip Deals for the User
-	    user.setTripDeals(allProviders);
-
-	    // Print Providers to Console
-	  System.out.println("Providers from tripPricer: " + allProviders);
-	    return allProviders;
-	}
-
-*/
 	public VisitedLocation trackUserLocation(User user) {
 		VisitedLocation visitedLocation = gpsUtil.getUserLocation(user.getUserId());
 		user.addToVisitedLocations(visitedLocation);
