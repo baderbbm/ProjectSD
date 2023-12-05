@@ -138,7 +138,8 @@ public class TourGuideService {
 		rewardsService.calculateRewards(user);
 		return visitedLocation;
 	}
-/*
+	
+    /*
 	public List<Attraction> getNearByAttractions(VisitedLocation visitedLocation) {
 		List<Attraction> nearbyAttractions = new ArrayList<>();
 		for (Attraction attraction : gpsUtil.getAttractions()) {
@@ -154,7 +155,6 @@ public class TourGuideService {
 
 	public List<AttractionInfo> getNearByAttractions(VisitedLocation visitedLocation, User user) {
 	    List<Attraction> allAttractions = gpsUtil.getAttractions();
-
 	    // Trier la liste allAttractions en fonction de la distance entre chaque attraction et la dernière localisation de l'utilisateur
 	    allAttractions.sort(
 	            Comparator.comparingDouble(attraction -> rewardsService.getDistance(attraction, visitedLocation.location)));
@@ -168,6 +168,7 @@ public class TourGuideService {
 	    // Remplir la liste avec les informations de chaque attraction
 	    for (Attraction attraction : nearbyAttractions) {
 	        double distance = rewardsService.getDistance(attraction, visitedLocation.location);
+	       
 	      int rewardPoints = rewardsService.getRewardPoints(attraction, user);
 
 	        AttractionInfo attractionInfo = new AttractionInfo(
@@ -186,7 +187,7 @@ public class TourGuideService {
 	    return result;
 	}
 
-	
+	/*	
 public List<Attraction> getNearByAttractions(VisitedLocation visitedLocation) {
 	List<Attraction> allAttractions = gpsUtil.getAttractions();
 
@@ -201,44 +202,6 @@ public List<Attraction> getNearByAttractions(VisitedLocation visitedLocation) {
 
 	return nearbyAttractions;
 }
-
-
-/*
-public List<Attraction> getNearByAttractions(VisitedLocation visitedLocation) {
-    List<Attraction> nearbyAttractions = gpsUtil.getAttractions().stream()
-            .filter(attraction -> rewardsService.isWithinAttractionProximity(attraction, visitedLocation.location))
-        	// limit(5): limite le flux aux 5 premiers éléments qui satisfont la condition du filtre 
-            // le traitement s'arrêtera dès qu'il aura trouvé les 5 premières attractions à proximité
-            .limit(5)
-            .collect(Collectors.toList());
-
-    System.out.println("Nombre d'attractions à proximité : " + nearbyAttractions.size());
-
-    return nearbyAttractions;
-}
-
-public List<Attraction> getNearByAttractions(VisitedLocation visitedLocation) {
-    List<Attraction> nearbyAttractions = gpsUtil.getAttractions().stream()
-            .filter(attraction -> rewardsService.isWithinAttractionProximity(attraction, visitedLocation.location))
-            .limit(5)
-            .collect(Collectors.toList());
-
-    // Si le nombre d'attractions à proximité est inférieur à 5, compléter avec d'autres attractions non filtrées
-    
-    if (nearbyAttractions.size() < 5) {
-        List<Attraction> additionalAttractions = gpsUtil.getAttractions().stream()
-                .filter(attraction -> !nearbyAttractions.contains(attraction)) // Éviter les duplicatas
-                .limit(5 - nearbyAttractions.size())
-                .collect(Collectors.toList());
-
-        nearbyAttractions.addAll(additionalAttractions);
-    }
-
-    System.out.println("Nombre d'attractions à proximité : " + nearbyAttractions.size());
-
-    return nearbyAttractions;
-}
-
 
 */
 
