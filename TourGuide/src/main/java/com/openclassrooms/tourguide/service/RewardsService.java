@@ -60,7 +60,7 @@ public class RewardsService {
 				}
 			}
 		}	
-	  user.getUserRewards().addAll(newRewards);
+		user.setUserRewards(newRewards);
 	}
 	
 	public boolean isWithinAttractionProximity(Attraction attraction, Location location) {
