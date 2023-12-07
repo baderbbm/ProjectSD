@@ -88,13 +88,10 @@ public class TourGuideService {
 	
 	public List<Provider> getTripDeals(User user) {
 		int cumulatativeRewardPoints = user.getUserRewards().stream().mapToInt(i -> i.getRewardPoints()).sum();
-		System.out.println("Cumulative Reward Points: " + cumulatativeRewardPoints);
-//  getPrice(java.lang.String apiKey, java.util.UUID attractionId, int adults, int children, int nightsStay, int rewardsPoints)
 		List<Provider> providers = tripPricer.getPrice(tripPricerApiKey, user.getUserId(),
 				user.getUserPreferences().getNumberOfAdults(), user.getUserPreferences().getNumberOfChildren(),
 				user.getUserPreferences().getTripDuration(), cumulatativeRewardPoints);
 		user.setTripDeals(providers);
-		System.out.println("Providers from tripPricer: " + providers);
 		return providers;
 	}
 
