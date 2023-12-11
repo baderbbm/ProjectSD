@@ -104,31 +104,12 @@ public class TestTourGuideService {
 
 	// les 5 attractions les plus proches de la dernière localisation de
 	// l'utilisateur
-
-	/*
-	@Test
-	public void getNearbyAttractions() {
-		GpsUtil gpsUtil = new GpsUtil();
-		RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
-		InternalTestHelper.setInternalUserNumber(0);
-		TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
-
-		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
-		VisitedLocation visitedLocation = tourGuideService.trackUserLocation(user);
-
-		List<Attraction> attractions = tourGuideService.getNearByAttractions(visitedLocation);
-
-		tourGuideService.tracker.stopTracking();
-
-		assertEquals(5, attractions.size());
-	}
-	*/
 	
 	@Test
 	public void getNearbyAttractions() {
 		GpsUtil gpsUtil = new GpsUtil();
 		RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
-		InternalTestHelper.setInternalUserNumber(0);
+		InternalTestHelper.setInternalUserNumber(1);
 		TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
 
 		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
@@ -148,24 +129,9 @@ public class TestTourGuideService {
 		RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
 		InternalTestHelper.setInternalUserNumber(0);
 		TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
-		UUID userId = UUID.randomUUID();
-
-		// User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
-		User user = new User(userId, "jon", "000", "jon@tourGuide.com");
-
-		// Attraction(java.lang.String attractionName, java.lang.String city,
-		// java.lang.String state, double latitude, double longitude)
-		Attraction attraction = new Attraction("bb", "Paris", "France", 2000, 1000);
-		// VisitedLocation(java.util.UUID userId, gpsUtil.location.Location location,
-		// java.util.Date timeVisited)
-		VisitedLocation visitedLocation = new VisitedLocation(userId, attraction, new Date());
-		user.addUserReward(new UserReward(visitedLocation, attraction, 2000000000));
-
+		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
 		List<Provider> providers = tourGuideService.getTripDeals(user);
-
 		tourGuideService.tracker.stopTracking();
-
 		assertEquals(5, providers.size());
 	}
-
 }
