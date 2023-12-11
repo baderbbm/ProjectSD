@@ -16,6 +16,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.slf4j.Logger;
@@ -101,6 +104,34 @@ public class TourGuideService {
 		rewardsService.calculateRewards(user);
 		return visitedLocation;
 	}
+	
+	
+	public void trackUsersLocationAsync(List<User> users) {
+        // Créez un ExecutorService avec le nombre souhaité de threads
+        ExecutorService executorService = Executors.newFixedThreadPool(RewardsService.getThreadPoolSize());
+
+        // Créez un CountDownLatch avec un compte égal au nombre d'utilisateurs
+        CountDownLatch countDownLatch = new CountDownLatch(users.size());
+
+        // Soumettez des tâches pour chaque utilisateur
+        for (User user : users) {
+            executorService.submit(() -> {
+                trackUserLocation(user);
+                countDownLatch.countDown(); // Diminuez le compte lorsque la tâche est terminée
+            });
+        }
+
+        // Attendez que toutes les tâches soient terminées
+        try {
+            countDownLatch.await(); // Cela attend indéfiniment jusqu'à ce que toutes les tâches soient terminées (besoin du test)
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Arrêtez l'ExecutorService
+        executorService.shutdown();
+    }
+
 	
     /*
 	public List<Attraction> getNearByAttractions(VisitedLocation visitedLocation) {
