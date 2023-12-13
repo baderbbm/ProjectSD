@@ -27,7 +27,7 @@ public class RewardsService {
 	private final GpsUtil gpsUtil;
 	private final RewardCentral rewardsCentral;
 	
-	private static final int THREAD_POOL_SIZE = 50;
+	private static final int THREAD_POOL_SIZE = 40;
 
 	
 	public static int getThreadPoolSize() {
