@@ -23,7 +23,7 @@ jobs:
         run: |
           mvn install:install-file -Dfile=C:/Users/ntic/Documents/workspace-spring-tool-suite-4-4.19.1.RELEASE/TourGuidee/libs/gpsUtil.jar -DgroupId=gpsUtil -DartifactId=gpsUtil -Dversion=1.0.0 -Dpackaging=jar
           mvn install:install-file -Dfile=C:/Users/ntic/Documents/workspace-spring-tool-suite-4-4.19.1.RELEASE/TourGuidee/libs/RewardCentral.jar -DgroupId=rewardCentral -DartifactId=rewardCentral -Dversion=1.0.0 -Dpackaging=jar
-          mvn install:install-file -Dfile=C:/Users/ntic/Documents/workspace-spring-tool-suite-4-4.19.1.RELEASE/TourGuidee/libs/TripPricer.jar -DgroupId=tripPricer -DartifactId=tripPricer -Dversion=1.0.0 -Dpackaging=jar
+          mvn install:install-file -Dfile=/cygdrive/c/Users/ntic/Documents/workspace-spring-tool-suite-4-4.19.1.RELEASE/TourGuidee/libs/TripPricer.jar -DgroupId=tripPricer -DartifactId=tripPricer -Dversion=1.0.0 -Dpackaging=jar
 
       - name: Build with Maven
         run: mvn -B package
