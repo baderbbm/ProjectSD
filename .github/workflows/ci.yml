@@ -1,10 +1,10 @@
 name: CI
 
 on:
-  push:
+  pull_request:
     branches:
       - master
-  pull_request:
+  push:
     branches:
       - master
 
@@ -35,4 +35,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: my-artifacts
-          path: target/
+          pat
