@@ -3,10 +3,10 @@ name: CI
 on:
   push:
     branches:
-      - master
+      - badr
   pull_request:
     branches:
-      - master
+      - badr
 
 jobs:
   build:
