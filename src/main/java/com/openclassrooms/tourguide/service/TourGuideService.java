@@ -105,7 +105,7 @@ public class TourGuideService {
 		return visitedLocation;
 	}
 	
-	
+	 
 	public void trackUsersLocationAsync(List<User> users) {
         // Créez un ExecutorService avec le nombre souhaité de threads
         ExecutorService executorService = Executors.newFixedThreadPool(RewardsService.getThreadPoolSize());
